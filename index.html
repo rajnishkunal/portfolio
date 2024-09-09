@@ -246,12 +246,27 @@
                     <h4><i class="fa-solid fa-envelope"></i> rajnishkunal0621@gmail.com</h4>
                 </div>
                 <div class="contact-sec-right">
-                    <form class="form-container">
-                        <input type="text" placeholder="Kunal" class="form-input">
-                        <input type="email" placeholder="Email" class="form-input">
-                        <textarea name="" id="" cols="40" rows="2" placeholder="Message"
+                    <!-- <form class="form-container" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="28988c29-c4b4-4a8c-958e-cc2d3d85e586">
+                        <input type="text" placeholder="Name" name="name" class="form-input">
+                        <input type="email" placeholder="Email" name="email" class="form-input">
+                        <textarea name="message" id="" cols="40" rows="2" placeholder="Message"
                             class="form-text-area"></textarea>
-                        <button class="btn-submit" type="button">Send Message</button>
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                        <button class="btn-submit" type="submit">Send Message</button>
+                    </form> -->
+                    <form class="form-container" action="https://api.web3forms.com/submit" method="POST" onsubmit="return validateCaptcha()">
+                        <input type="hidden" name="access_key" value="28988c29-c4b4-4a8c-958e-cc2d3d85e586">
+                        <input type="text" placeholder="Name" name="name" class="form-input" required>
+                        <input type="email" placeholder="Email" name="email" class="form-input" required>
+                        <textarea name="message" cols="40" rows="2" placeholder="Message" class="form-text-area" required></textarea>
+                        
+                        <!-- CAPTCHA Section -->
+                        <div class="captcha-container">
+                            <label for="captchaInput" class="captcha-label">Solve: <span id="captchaQuestion"></span></label>
+                            <input type="text" id="captchaInput" class="form-input" placeholder="Enter your answer" required>
+                        </div>
+                        <button class="btn-submit" type="submit">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -284,6 +299,25 @@
             backSpeed: 80,
             backDelay: 1000,
         });
+
+        function generateCaptcha() {
+        const num1 = Math.floor(Math.random() * 10);
+        const num2 = Math.floor(Math.random() * 10);
+        document.getElementById('captchaQuestion').textContent = `${num1} + ${num2}`;
+        return num1 + num2;
+    }
+
+    let captchaAnswer = generateCaptcha();
+
+    function validateCaptcha() {
+        const userAnswer = parseInt(document.getElementById('captchaInput').value);
+        if (userAnswer !== captchaAnswer) {
+            alert('Incorrect CAPTCHA answer. Please try again.');
+            captchaAnswer = generateCaptcha(); // Generate a new CAPTCHA
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+    }
     </script>
 </body>
 

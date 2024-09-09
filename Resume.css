@@ -539,6 +539,19 @@ textarea:focus,
 button:focus {
     outline: none;
 }
+/* Captcha code  */
+.captcha-container {
+  
+  text-align: left;
+}
+
+.captcha-label {
+  margin-left: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 0px;
+  display: block;
+}
+
 .footer{
   width: 1200px;
   height: 40px;
